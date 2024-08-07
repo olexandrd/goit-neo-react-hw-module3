@@ -27,12 +27,17 @@ const App = () => {
   };
 
   const handleContactSubmit = (values, actions) => {
-    // contacts.push({ ...values, id: uuidv4() });
     setContacts((prevContacts) => [
       ...prevContacts,
       { ...values, id: uuidv4() },
     ]);
     actions.resetForm();
+  };
+
+  const handleContactDelete = (id) => {
+    setContacts((prevContacts) =>
+      prevContacts.filter((contact) => contact.id !== id)
+    );
   };
 
   return (
@@ -43,7 +48,10 @@ const App = () => {
         searchRequest={searchRequest}
         handleChange={handleSearchRequest}
       />
-      <ContactList contacts={filteredContacts} />
+      <ContactList
+        contacts={filteredContacts}
+        handleDelete={handleContactDelete}
+      />
     </div>
   );
 };
