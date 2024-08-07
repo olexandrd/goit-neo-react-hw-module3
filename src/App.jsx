@@ -1,5 +1,6 @@
-// import { useState, useEffect } from "react";
+import { useState } from "react";
 import ContactList from "./components/ContactList/ContactList";
+import SearchBox from "./components/SearchBox/SearchBox";
 
 const contacts = [
   { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
@@ -12,13 +13,27 @@ const contacts = [
 ];
 
 const App = () => {
+  const [searchRequest, setSearchRequest] = useState("");
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(searchRequest.toLowerCase())
+  );
+
+  const handleSearchRequest = (e) => {
+    setSearchRequest(e.target.value);
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
       {/* <ContactForm />
-        <SearchBox />
+        
          */}
-      <ContactList contacts={contacts} />
+      <SearchBox
+        searchRequest={searchRequest}
+        handleChange={handleSearchRequest}
+      />
+      <ContactList contacts={filteredContacts} />
     </div>
   );
 };
