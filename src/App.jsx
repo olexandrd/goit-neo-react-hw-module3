@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
+import ContactForm from "./components/ContactForm/ContactForm";
 
-const contacts = [
+const savedContacts = [
   { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
   { id: "id-2e", name: "Hermione Kline", number: "443-89-12" },
   { id: "id-2er", name: "Hermione Kline", number: "443-89-12" },
@@ -14,6 +16,7 @@ const contacts = [
 
 const App = () => {
   const [searchRequest, setSearchRequest] = useState("");
+  const [contacts, setContacts] = useState(savedContacts);
 
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(searchRequest.toLowerCase())
@@ -23,12 +26,19 @@ const App = () => {
     setSearchRequest(e.target.value);
   };
 
+  const handleContactSubmit = (values, actions) => {
+    // contacts.push({ ...values, id: uuidv4() });
+    setContacts((prevContacts) => [
+      ...prevContacts,
+      { ...values, id: uuidv4() },
+    ]);
+    actions.resetForm();
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
-      {/* <ContactForm />
-        
-         */}
+      <ContactForm submitHandler={handleContactSubmit} />
       <SearchBox
         searchRequest={searchRequest}
         handleChange={handleSearchRequest}
