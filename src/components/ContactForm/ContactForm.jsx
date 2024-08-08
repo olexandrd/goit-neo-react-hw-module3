@@ -12,12 +12,12 @@ const initialValues = {
 const validationSchema = Yup.object({
   name: Yup.string()
     .min(3, "Too short!")
-    .max(50, "Too Long!")
+    .max(50, "Too long!")
     .required("Required"),
   number: Yup.string()
     .min(3, "Too short!")
     .max(50, "Too Long!")
-    .matches(phoneRegExp, "Invalid phone number")
+    .matches(phoneRegExp, "Invalid phone number, please use 000-00-00 format")
     .required("Required"),
 });
 
