@@ -10,6 +10,7 @@ const SearchBox = ({ searchRequest, handleChange }) => {
           className={css.input}
           value={searchRequest}
           onChange={handleChange}
+          placeholder="Search ..."
         />
       </label>
     </div>
